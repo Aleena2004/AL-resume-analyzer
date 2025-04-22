@@ -36,14 +36,36 @@
             {{ form.submit(class="btn btn-primary") }}
         </div>
     </form>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div class="alert alert-info mt-4">
-          {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">{{ message }}</div>
-          {% endfor %}
+
+    {% if results %}
+    <div class="results-container mt-6">
+        <div class="result-card bg-green-100 text-green-800 p-4 rounded-lg mb-2">
+            <strong>Overall Resume Score: {{ results.total_score }}%</strong>
         </div>
-      {% endif %}
-    {% endwith %}
+        <div class="result-card bg-blue-100 text-blue-800 p-4 rounded-lg mb-2">
+            <strong>Details:</strong>
+        </div>
+        <div class="result-card bg-blue-100 text-blue-800 p-4 rounded-lg mb-2">
+            Resume Structure: {{ results.structure_score }}%
+        </div>
+        <div class="result-card bg-blue-100 text-blue-800 p-4 rounded-lg mb-2">
+            Skills Match: {{ results.skills_score }}%
+        </div>
+        <div class="result-card bg-blue-100 text-blue-800 p-4 rounded-lg mb-2">
+            Experience Match: {{ results.experience_score }}%
+        </div>
+        <div class="result-card bg-blue-100 text-blue-800 p-4 rounded-lg mb-2">
+            Education Match: {{ results.education_score }}%
+        </div>
+        <div class="result-card bg-yellow-100 text-yellow-800 p-4 rounded-lg">
+            <strong>Issues:</strong>
+            <ul class="list-disc pl-5 mt-2">
+                {% for issue in results.feedback %}
+                <li>{{ issue }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
